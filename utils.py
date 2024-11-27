@@ -64,3 +64,35 @@ def detect_eyes(img, cascade):
             right_eye = (x, y, w, h)
 
     return left_eye, right_eye
+
+
+def get_eye_parameters(image: cv2.Mat):
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    # eye_region = gray[y:y + h, x:x + w]
+    # eye_color = img[y:y + h, x:x + w]
+
+    # Определяем нижнее и верхнее веко с помощью градиента
+    h, w, _ = image.shape
+
+    eye_roi = gray[int(h / 3):int(2 * h / 3), :]
+    _, thresh = cv2.threshold(eye_roi, 60, 255, cv2.THRESH_BINARY_INV)
+
+    contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    # Находим контуры для измерения расстояния между веками
+    if contours:
+        contour = max(contours, key=cv2.contourArea)
+        (x_min, y_min, w_min, h_min) = cv2.boundingRect(contour)
+        distance = h_min
+
+        # Используем метод для нахождения зрачка
+        ret, thresh_eye = cv2.threshold(gray, 100, 255, cv2.THRESH_BINARY_INV)
+        contours_eye, _ = cv2.findContours(thresh_eye, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        if contours_eye:
+            contour_eye = max(contours_eye, key=cv2.contourArea)
+            (x_eye, y_eye, w_eye, h_eye) = cv2.boundingRect(contour_eye)
+            pupil_size = w_eye * h_eye
+
+            return distance, pupil_size
+
+    return None, None
