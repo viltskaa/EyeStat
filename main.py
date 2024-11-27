@@ -71,15 +71,15 @@ def get_ear_from_image(image):
         left_eye_ear = eye_aspect_ratio(np.array(left_eye_landmarks))
         right_eye_ear = eye_aspect_ratio(np.array(right_eye_landmarks))
 
-        for marker in left_eye_landmarks:
-            marker_x, marker_y = marker
-            cv2.circle(face, (marker_x, marker_y), radius=2, color=(0, 255, 0), thickness=-1)
-
-        for marker in right_eye_landmarks:
-            marker_x, marker_y = marker
-            cv2.circle(face, (marker_x, marker_y), radius=2, color=(0, 255, 0), thickness=-1)
-
-        cv2.imshow("face", face)
+        # for marker in left_eye_landmarks:
+        #     marker_x, marker_y = marker
+        #     cv2.circle(face, (marker_x, marker_y), radius=2, color=(0, 255, 0), thickness=-1)
+        #
+        # for marker in right_eye_landmarks:
+        #     marker_x, marker_y = marker
+        #     cv2.circle(face, (marker_x, marker_y), radius=2, color=(0, 255, 0), thickness=-1)
+        #
+        # cv2.imshow("face", face)
 
         ears_values = (float(left_eye_ear), float(right_eye_ear))
 
