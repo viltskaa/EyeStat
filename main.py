@@ -86,7 +86,7 @@ def get_ear_from_image(image):
     return ears_values
 
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 processor_name = get_processor_info().decode("utf-8").replace(" ", "_")
 
