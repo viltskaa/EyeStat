@@ -3,14 +3,14 @@ import subprocess
 import sys
 
 
-def is_virtualenv_active(venv_dir):
+def is_virtualenv_active(venv_dir: str) -> bool:
     """
     Проверяет, активирована ли виртуальная среда.
     """
     return os.path.abspath(sys.executable).startswith(os.path.abspath(venv_dir))
 
 
-def create_virtualenv(venv_dir):
+def create_virtualenv(venv_dir: str) -> None:
     """
     Создает виртуальную среду, если она не существует.
     """
@@ -22,7 +22,7 @@ def create_virtualenv(venv_dir):
         print("Виртуальная среда уже существует.")
 
 
-def are_requirements_installed(requirements_file):
+def is_requirements_installed(requirements_file: str) -> bool:
     """
     Проверяет, установлены ли все зависимости из requirements.txt.
     """
@@ -48,8 +48,8 @@ def are_requirements_installed(requirements_file):
         return False
 
 
-def activate_and_install(requirements_file):
-    if are_requirements_installed(requirements_file):
+def activate_and_install(requirements_file: str) -> None:
+    if is_requirements_installed(requirements_file):
         print("Зависимости уже установлены. Пропускаем установку.")
         return
 
@@ -76,13 +76,13 @@ def activate_and_install(requirements_file):
         print(f"Файл {requirements_file} не найден. Зависимости не установлены.")
 
 
-def reboot(*reboot_args: str, venv_dir='.venv'):
+def reboot(*reboot_args: str, venv_dir='.venv') -> None:
     python_executable = os.path.join(venv_dir, "bin", "python")
     os.system('cls' if os.name == 'nt' else 'clear')
     os.execv(python_executable, [python_executable] + sys.argv + [*reboot_args])
 
 
-def setup_environment():
+def setup_environment() -> None:
     venv_dir = ".venv"
     requirements_file = "requirements.txt"
 
