@@ -1,9 +1,19 @@
 from datetime import datetime
 
-import cv2
-import pandas as pd
-import utils
-import hashlib
+try:
+    import cv2
+    import pandas as pd
+    import utils
+    import hashlib
+except ImportError:
+    import auto_start
+
+    auto_start.setup_environment()
+finally:
+    import cv2
+    import pandas as pd
+    import utils
+    import hashlib
 
 __cap = cv2.VideoCapture(1)
 
