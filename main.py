@@ -21,7 +21,7 @@ __processor_name = utils.get_processor_info()
 
 
 def _get_filename(len_df: int):
-    return (f"./csv/{hashlib.md5(__processor_name.encode()).hexdigest()}"
+    return (f"./{hashlib.md5(__processor_name.encode()).hexdigest()}"
             f"_EAR_{len_df}_{datetime.now().strftime('%B_%d_%H_%M_%S')}.csv")
 
 
